@@ -1,0 +1,28 @@
+[project]
+name = "hayabusa-chick"
+version = "0.1.0"
+description = "早押しクイズエージェント作成用の最小構成テンプレート"
+requires-python = ">=3.10"
+dependencies = [
+    "python-dotenv",
+    "pyyaml",
+    "tiktoken",
+    "langchain",
+    "langchain-openai",         # openai
+    "langchain-google-genai",   # google (Gemini)
+    "langchain-anthropic",      # anthropic (Claude)
+    "langchain-ollama",         # ollama (ローカルLLM)
+]
+
+[project.optional-dependencies]
+# HuggingFace(transformers をローカルGPU/CPUで実行)を使うときだけ:
+#   uv sync --extra huggingface
+huggingface = [
+    "langchain-huggingface",
+    "transformers",
+    "torch",
+]
+
+[tool.uv]
+# アプリ(スクリプト)としてのみ使うので、この repo 自体はビルド/インストールしない。
+package = false

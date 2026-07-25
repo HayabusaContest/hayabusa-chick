@@ -7,8 +7,6 @@ hayabusa-chick CLI エントリーポイント
 
 import sys
 
-from dotenv import load_dotenv
-
 from engine import run
 
 
@@ -17,7 +15,7 @@ def main() -> None:
         print("使い方: python main.py <CSVファイルパス>")
         sys.exit(1)
 
-    load_dotenv()
+    # APIキー(.env)と設定(config.yml)の読み込みは config_loader が行います。
     run(sys.argv[1])
 
 

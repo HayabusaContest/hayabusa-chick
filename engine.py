@@ -16,12 +16,16 @@ from typing import List
 import tiktoken
 
 from agent import predict_answer
+from config_loader import load_config
 
-# 問題文をトークン化するエンコーディング(OpenAIのBPEトークナイザー)
+# 問題文をトークン化するエンコーディング(BPEトークナイザー)
 _ENCODING = tiktoken.get_encoding("o200k_base")
 
-# 1トークンを表示してから次のトークンを表示するまでの待機時間(秒)
-REVEAL_DELAY_SECONDS = 0.1
+# 1トークンを表示してから次のトークンを表示するまでの待機時間(秒)。
+# config/config.yml の llm.sleep_time で変更できます(未設定なら 0.1 秒)。
+def _reveal_delay_seconds() -> float:
+    llm_config = load_config().get("llm", {}) or {}
+    return float(llm_config.get("sleep_time", 0.1))
 
 
 def _tokenize(question_text: str) -> List[int]:
@@ -29,6 +33,8 @@ def _tokenize(question_text: str) -> List[int]:
 
 
 def run(csv_path: str) -> None:
+    reveal_delay = _reveal_delay_seconds()
+
     with open(csv_path, encoding="utf-8-sig", newline="") as f:
         rows = list(csv.DictReader(f))
 
@@ -43,4 +49,4 @@ def run(csv_path: str) -> None:
             answer = predict_answer(partial_question)
             print(f"入力に対する回答: {answer if answer else ''}")
 
-            time.sleep(REVEAL_DELAY_SECONDS)
+            time.sleep(reveal_delay)

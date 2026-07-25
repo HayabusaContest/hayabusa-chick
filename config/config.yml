@@ -1,0 +1,32 @@
+llm:
+  type: google          # openai / google / anthropic / ollama
+  sleep_time: 3       # 1トークン表示ごとの待機時間(秒)
+
+prompt:
+  system: |-
+    あなたは早押しクイズの回答者です。問題文はまだ最後まで読み終わっていない途中の状態で渡されます。確信が持てなくてもかまわないので、現時点で最も可能性が高いと思う解答を単語・フレーズだけで1つ、必ず答えてください。「わかりません」「PASS」のような回答は禁止です。説明や前置きも不要です。
+
+openai:
+  model: gpt-4o-mini
+  temperature: 0.7
+  reasoning_effort:     # GPT-5系のみ対応。他は空欄
+
+google:
+  model: gemini-flash-lite-latest
+  temperature: 0.7
+
+anthropic:
+  model: claude-haiku-4-5
+  temperature: 0.7
+  max_tokens: 256
+
+ollama:
+  model: llama3.1
+  temperature: 0.7
+  base_url: http://localhost:11434
+
+huggingface:            # transformers をローカルで実行(Colab等でGPU利用可)
+  model: gpt2
+  device: -1            # -1: CPU / 0: GPU(cuda:0)
+  max_new_tokens: 64
+  temperature: 0.7

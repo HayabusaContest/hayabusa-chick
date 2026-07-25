@@ -42,6 +42,21 @@ ollama・vLLM・HuggingFace などローカル/セルフホストの起動や依
 
 システムプロンプトは `config/config.yml` の `prompt.system` で管理しています。回答の方針を変えたいときは、コードを触らずここを編集してください。
 
+## 応答の保存(output)
+
+各ステップの「No / 逐次入力 / 回答」を、実行ごとに1ファイルとして保存します(画面表示はそのまま)。
+
+```yaml
+output:
+  enabled: true         # false で保存しない
+  dir: data/output
+  formats: [csv, jsonl] # 片方だけにするなら [csv] など
+```
+
+- 保存先: `data/output/csv/` と `data/output/jsonl/`。
+- ファイル名は `<モデル名>_<タイムスタンプ>.csv` / `.jsonl`(csv と jsonl は同じベース名のペア)。jsonl には `model` と `timestamp` も記録します。
+- `data/output/` は `.gitignore` 済みなので、保存結果は git に入りません(`data/input/sample_questions.csv` 以外の data は無視されます)。
+
 ## 仕組み・プロバイダの追加(改造したい人向け)
 
 - `config_loader.py` が `config.yml` と `.env` を読み込み、`agent.py` が `llm.type` に応じてモデルを生成します。API系(openai/google/anthropic)と ollama は LangChain の `init_chat_model` で一元化、huggingface だけは `HuggingFacePipeline`(ローカル実行)で別扱いです。呼び出しは毎回 system+user だけの単発で、会話履歴は持ちません。

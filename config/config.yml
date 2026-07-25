@@ -6,6 +6,11 @@ prompt:
   system: |-
     あなたは早押しクイズの回答者です。問題文はまだ最後まで読み終わっていない途中の状態で渡されます。確信が持てなくてもかまわないので、現時点で最も可能性が高いと思う解答を単語・フレーズだけで1つ、必ず答えてください。「わかりません」「PASS」のような回答は禁止です。説明や前置きも不要です。
 
+output:                  # 応答の保存(実行ごとに1ファイル)
+  enabled: true
+  dir: data/output
+  formats: [csv, jsonl]
+
 openai:
   model: gpt-4o-mini
   temperature: 0.7

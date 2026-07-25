@@ -2,7 +2,7 @@
 hayabusa-chick CLI エントリーポイント
 
 使い方:
-    python main.py data/sample_questions.csv
+    python main.py data/input/sample_questions.csv
 """
 
 import sys

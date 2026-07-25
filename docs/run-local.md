@@ -14,7 +14,7 @@
    ollama pull llama3.1
    ```
 3. **サーバー** — インストール後に自動でローカルサーバー(`http://localhost:11434`)が立ち上がります(立っていなければ `ollama serve`)。
-4. `config.yml` を ollama に設定([local-models.md](local-models.md))して `uv run python main.py data/sample_questions.csv`。
+4. `config.yml` を ollama に設定([local-models.md](local-models.md))して `uv run python main.py data/input/sample_questions.csv`。
 
 ## vLLM(OpenAI互換サーバー・Linux + NVIDIA GPU 前提)
 
@@ -55,7 +55,7 @@ uv sync --extra huggingface
 3. 左のファイルブラウザで `config/config.yml` を開き、`type: huggingface` と `device: 0`(GPU)に編集。
 4. 実行:
    ```python
-   !uv run python main.py data/sample_questions.csv
+   !uv run python main.py data/input/sample_questions.csv
    ```
 
 APIプロバイダ(Gemini など)を Colab で使う場合はGPUもHF依存も不要で、`!uv sync` だけでOK。`config/.env` にキーを入れて同じように実行できます。

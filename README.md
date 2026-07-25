@@ -42,10 +42,10 @@ cp config/.env.example config/.env     # Windows は copy config\.env.example co
 ### 3. 実行
 
 ```bash
-uv run python main.py data/sample_questions.csv
+uv run python main.py data/input/sample_questions.csv
 ```
 
-問題文とその下に回答が表示されれば成功です。引数の CSV パスを自分のファイルに差し替えれば、好きな問題で動かせます(`data/sample_questions.csv` は動作確認用のサンプルです)。
+問題文とその下に回答が表示されれば成功です。引数の CSV パスを自分のファイルに差し替えれば、好きな問題で動かせます(`data/input/sample_questions.csv` は動作確認用のサンプル。自分の問題CSVは `data/input/` に置くと分かりやすいです)。
 
 ## CSVフォーマット
 

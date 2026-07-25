@@ -7,4 +7,6 @@ venv/
 
 # data/ はサンプル以外を無視(自前の問題データやモデル出力をコミットしない)
 data/*
-!data/sample_questions.csv
+!data/input/
+data/input/*
+!data/input/sample_questions.csv

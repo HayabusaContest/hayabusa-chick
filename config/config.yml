@@ -19,11 +19,13 @@ openai:
 google:
   model: gemini-flash-lite-latest
   temperature: 0.7
+  # thinking_budget: 0            # thinkingを切る(gemini-2.5-flash 等は既定オン)
 
 anthropic:
   model: claude-haiku-4-5
   temperature: 0.7
   max_tokens: 256
+  # thinking: {type: disabled}    # thinkingを無効化(対応モデルのみ)
 
 ollama:
   model: llama3.1

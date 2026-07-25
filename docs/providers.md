@@ -36,6 +36,8 @@ ollama:
   base_url: http://localhost:11434
 ```
 
+thinking / reasoning はプロバイダ固有です(統一スイッチは用意していません)。各ブロックにその名前で書けば渡ります — Gemini は `thinking_budget: 0` で off、Claude は `thinking: {type: disabled}`、OpenAI(GPT-5系)は `reasoning_effort`。`config.yml` にコメントアウトの例を置いてあるので、必要なら外して使ってください。
+
 ollama・vLLM・HuggingFace などローカル/セルフホストの起動や依存は [local-models.md](local-models.md) を参照。
 
 ## プロンプト

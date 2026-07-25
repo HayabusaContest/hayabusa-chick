@@ -47,12 +47,21 @@ uv run python main.py data/input/sample_questions.csv
 
 問題文とその下に回答が表示されれば成功です。引数の CSV パスを自分のファイルに差し替えれば、好きな問題で動かせます(`data/input/sample_questions.csv` は動作確認用のサンプル。自分の問題CSVは `data/input/` に置くと分かりやすいです)。
 
-## CSVフォーマット
+## 入力と出力(data/)
+
+**入力** — 問題データは `data/input/` に CSV で置きます(サンプル: `data/input/sample_questions.csv`)。フォーマットは次の3列:
 
 ```csv
 No,問題文,解答
 1,問題文の本文,正答
 ```
+
+**出力** — 実行結果は自動で `data/output/` に保存されます(1回の実行につき1ファイル。ファイル名は `<モデル名>_<タイムスタンプ>`)。
+
+- `data/output/csv/` … `No / 逐次入力 / 回答` の表形式(Excelなどで開ける)
+- `data/output/jsonl/` … 1行1レコード。`model` と `timestamp` も含む
+
+保存の on/off や形式は `config/config.yml` の `output` で変更できます(詳細は [docs/providers.md](docs/providers.md))。サンプル以外の `data/` は git 管理外です。
 
 ## もっと詳しく
 

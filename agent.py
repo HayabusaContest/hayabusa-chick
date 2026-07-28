@@ -10,7 +10,7 @@ predict_answer() は、問題文が少しずつ読み上げられるたびに呼
 使用するLLMプロバイダと モデルは config/config.yml で切り替えられます:
   - API系: openai / google / anthropic(内部は LangChain の init_chat_model で一元化)
   - ローカル: ollama(OpenAI互換)/ huggingface(transformers を GPU/CPU で直接実行)
-プロンプトも config/config.yml の prompt.system で管理します。
+プロンプトも config/config.yml の prompt.system / prompt.user で管理します。
 APIキーは config/.env に設定します。
 呼び出しは毎回独立で、会話履歴は持ちません(前の回答が次を汚染しないように)。
 回答が正解かどうかの自動判定は行いません。
@@ -111,9 +111,11 @@ def predict_answer(partial_question: str) -> Optional[str]:
         その時点で最も可能性が高いと思う解答(常に何か返します)。
     """
     # 毎回 system + user だけを渡す単発呼び出し(履歴なし)。
-    system_prompt = load_config()["prompt"]["system"]
+    prompt_cfg = load_config()["prompt"]
+    # prompt.user の {text} に問題文の断片を差し込む(未設定なら断片をそのまま渡す)
+    user_template = prompt_cfg.get("user") or "{text}"
     messages = [
-        SystemMessage(content=system_prompt),
-        HumanMessage(content=partial_question),
+        SystemMessage(content=prompt_cfg["system"]),
+        HumanMessage(content=user_template.replace("{text}", partial_question)),
     ]
     return _get_chain().invoke(messages).strip()

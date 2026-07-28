@@ -2,10 +2,6 @@ llm:
   type: google          # openai / google / anthropic / ollama
   sleep_time: 3       # 1トークン表示ごとの待機時間(秒)
 
-prompt:
-  system: |-
-    あなたは早押しクイズの回答者です。問題文はまだ最後まで読み終わっていない途中の状態で渡されます。確信が持てなくてもかまわないので、現時点で最も可能性が高いと思う解答を単語・フレーズだけで1つ、必ず答えてください。「わかりません」「PASS」のような回答は禁止です。説明や前置きも不要です。
-
 output:                  # 応答の保存(実行ごとに1ファイル)
   enabled: true
   dir: data/output
@@ -37,3 +33,10 @@ huggingface:            # transformers をローカルで実行(Colab等でGPU�
   device: -1            # -1: CPU / 0: GPU(cuda:0)
   max_new_tokens: 64
   temperature: 0.7
+
+prompt:
+  system: |-
+    あなたは早押しクイズの回答者です。問題文はまだ最後まで読み終わっていない途中の状態で渡されます。確信が持てなくてもかまわないので、現時点で最も可能性が高いと思う解答を単語・フレーズだけで1つ、必ず答えてください。「わかりません」「PASS」のような回答は禁止です。説明や前置きも不要です。
+
+  # 都度の user プロンプト。{text} に問題文の断片が差し込まれる
+  user: "{text}"
